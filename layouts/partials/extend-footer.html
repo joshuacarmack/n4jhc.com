@@ -1,24 +1,32 @@
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script>
   (function () {
-    function init() {
-      if (window.__qslLightboxInitialized) return;
-      window.__qslLightboxInitialized = true;
+    function initQslLightbox() {
+      // Only run if this page actually has QSL links
+      var links = document.querySelectorAll("a.qslbox");
+      if (!links.length) return;
+
+      // If we've already created an instance, destroy it before re-creating
+      if (window.__qslLightboxInstance && typeof window.__qslLightboxInstance.destroy === "function") {
+        try { window.__qslLightboxInstance.destroy(); } catch (e) {}
+      }
 
       if (typeof GLightbox !== "function") return;
 
-      // Initialize lightbox
-      GLightbox({ selector: ".qslbox" });
-
-      // Fallback: if anything tries to navigate normally, stop it
-      document.querySelectorAll("a.qslbox").forEach(function (a) {
-        a.addEventListener("click", function (e) {
-          e.preventDefault();
-        }, true);
-      });
+      window.__qslLightboxInstance = GLightbox({ selector: "a.qslbox" });
     }
 
-    // Run late to avoid theme collisions
-    window.addEventListener("load", init);
+    // Normal full page load
+    document.addEventListener("DOMContentLoaded", initQslLightbox);
+
+    // Some themes swap content without reloading the page; catch common events
+    window.addEventListener("load", initQslLightbox);
+    document.addEventListener("swup:contentReplaced", initQslLightbox);
+    document.addEventListener("turbo:load", initQslLightbox);
+
+    // Also re-run after any click (covers “instant navigation” patterns)
+    document.addEventListener("click", function () {
+      setTimeout(initQslLightbox, 0);
+    }, true);
   })();
 </script>

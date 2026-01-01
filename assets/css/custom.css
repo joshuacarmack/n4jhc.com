@@ -1,16 +1,30 @@
 .qsl-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
   gap:16px;
 }
-.qsl-item img{
+
+.qsl-card{
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:14px;
+  padding:12px;
+  background: rgba(255,255,255,0.04);
+}
+
+.qsl-imgwrap{
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:10px;
+}
+
+.qsl-imgwrap img{
   width:100%;
   height:auto;
   display:block;
-  border-radius:12px;
 }
+
 .qsl-caption{
-  margin-top:8px;
+  margin-top:4px;
   font-size:0.95rem;
-  opacity:0.85;
+  opacity:0.9;
 }

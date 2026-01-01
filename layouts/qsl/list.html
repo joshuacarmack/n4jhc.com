@@ -10,27 +10,28 @@
     <div class="qsl-grid">
       {{ range .Pages.ByTitle }}
         {{ $imgs := .Resources.Match "*.{jpg,jpeg,png,webp}" }}
-        {{ if lt (len $imgs) 1 }}
-          {{ continue }}
-        {{ end }}
+        {{ if lt (len $imgs) 1 }}{{ continue }}{{ end }}
 
         {{ $front := .Resources.GetMatch "*front*" }}
-        {{ if not $front }}
-          {{ $front = index $imgs 0 }}
+        {{ $back  := .Resources.GetMatch "*back*" }}
+
+        {{ if not $front }}{{ $front = index $imgs 0 }}{{ end }}
+        {{ if not $back }}
+          {{ if ge (len $imgs) 2 }}{{ $back = index $imgs 1 }}{{ end }}
         {{ end }}
 
-        {{ $galleryID := printf "qsl-%s" .RelPermalink | urlize }}
-
-        <div class="qsl-item">
-          <a href="{{ $front.RelPermalink }}" class="qslbox" data-gallery="{{ $galleryID }}" data-title="{{ .Title }}">
-            <img src="{{ $front.RelPermalink }}" loading="lazy" alt="{{ .Title }} QSL front">
-          </a>
-
-          {{ range $imgs }}
-            {{ if ne .RelPermalink $front.RelPermalink }}
-              <a href="{{ .RelPermalink }}" class="qslbox" data-gallery="{{ $galleryID }}" data-title="{{ $.Title }}" style="display:none;"></a>
+        <div class="qsl-card">
+          <div class="qsl-imgwrap">
+            {{ if $front }}
+              <img src="{{ $front.RelPermalink }}" loading="lazy" alt="{{ .Title }} QSL front">
             {{ end }}
-          {{ end }}
+          </div>
+
+          <div class="qsl-imgwrap">
+            {{ if $back }}
+              <img src="{{ $back.RelPermalink }}" loading="lazy" alt="{{ .Title }} QSL back">
+            {{ end }}
+          </div>
 
           <div class="qsl-caption">{{ .Title }}</div>
         </div>
