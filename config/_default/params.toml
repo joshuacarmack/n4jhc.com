@@ -48,9 +48,9 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
 [homepage]
   layout = "hero" # valid options: page, profile, hero, card, background, custom
   homepageImage = "christopher-burns-Kj2SaNHG-hg-unsplash.jpg" # used in: hero, and card
-  showRecent = true
+  showRecent = false
   showRecentItems = 6
-  showMoreLink = true
+  showMoreLink = false
   showMoreLinkDest = "/posts/"
   cardView = true
   cardViewScreenWidth = false
@@ -144,11 +144,11 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   # domain = "llama.yoursite.com"
 
 [umamiAnalytics]
-  websiteid = "bd742a51-2583-4329-8019-34c7bafe7462"
-  domain = "umami.jclab.xyz"
-  dataDomains = "joshuacarmack.com"
-  scriptName = ""
-  enableTrackEvent = true
+  #websiteid = "bd742a51-2583-4329-8019-34c7bafe7462"
+  #domain = "umami.jclab.xyz"
+  #dataDomains = "joshuacarmack.com"
+  #scriptName = ""
+  #enableTrackEvent = true
 
 [selineAnalytics]
   # token = "XXXXXX"
