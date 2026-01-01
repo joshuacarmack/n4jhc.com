@@ -22,13 +22,13 @@
         {{ $galleryID := printf "qsl-%s" .RelPermalink | urlize }}
 
         <div class="qsl-item">
-          <a href="{{ $front.RelPermalink }}" class="glightbox" data-gallery="{{ $galleryID }}" data-title="{{ .Title }}">
+          <a href="{{ $front.RelPermalink }}" class="qslbox" data-gallery="{{ $galleryID }}" data-title="{{ .Title }}">
             <img src="{{ $front.RelPermalink }}" loading="lazy" alt="{{ .Title }} QSL front">
           </a>
 
           {{ range $imgs }}
             {{ if ne .RelPermalink $front.RelPermalink }}
-              <a href="{{ .RelPermalink }}" class="glightbox" data-gallery="{{ $galleryID }}" data-title="{{ $.Title }}" style="display:none;"></a>
+              <a href="{{ .RelPermalink }}" class="qslbox" data-gallery="{{ $galleryID }}" data-title="{{ $.Title }}" style="display:none;"></a>
             {{ end }}
           {{ end }}
 

@@ -1,6 +1,24 @@
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    GLightbox({ selector: ".glightbox" });
-  });
+  (function () {
+    function init() {
+      if (window.__qslLightboxInitialized) return;
+      window.__qslLightboxInitialized = true;
+
+      if (typeof GLightbox !== "function") return;
+
+      // Initialize lightbox
+      GLightbox({ selector: ".qslbox" });
+
+      // Fallback: if anything tries to navigate normally, stop it
+      document.querySelectorAll("a.qslbox").forEach(function (a) {
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+        }, true);
+      });
+    }
+
+    // Run late to avoid theme collisions
+    window.addEventListener("load", init);
+  })();
 </script>
