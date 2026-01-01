@@ -6,7 +6,17 @@
     {{ end }}
   </header>
 
-  <section class="mt-10">
+  <section class="mt-12 max-w-prose">
+    <h2 class="text-xl font-semibold mb-4">About QSL Cards</h2>
+    <p class="opacity-80 leading-relaxed">
+      QSL cards are postcard-sized acknowledgments that radio operators exchange to verify two-way radio communication. 
+      They serve as confirmation that a contact was made, and include details such as the date, time, frequency, and signal report from the exchange. 
+      Collecting QSL cards is a tradition in the amateur radio community and helps operators remember meaningful contacts with other hams across the globe.
+    </p>
+  </section>
+
+  <section class="mt-12">
+    <h2 class="text-2xl font-bold mb-6">Received Cards</h2>
     <div class="qsl-grid">
       {{ range (.Pages.ByDate.Reverse) }}
         {{ $imgs := .Resources.Match "*.{jpg,jpeg,png,webp}" }}
@@ -39,6 +49,29 @@
           </div>
         </div>
       {{ end }}
+    </div>
+  </section>
+
+  <section class="mt-20">
+    <h2 class="text-2xl font-bold mb-6">My QSL Card</h2>
+    <div class="max-w-2xl">
+      <p class="opacity-80 mb-6">This is the QSL card I send out to other operators to confirm our radio contacts:</p>
+      <div class="qsl-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+        {{ $front := .Resources.GetMatch "N4JHC_front*" }}
+        {{ $back := .Resources.GetMatch "N4JHC_back*" }}
+        
+        {{ if $front }}
+        <div class="qsl-imgwrap">
+          <img src="{{ $front.RelPermalink }}" loading="lazy" alt="N4JHC QSL front">
+        </div>
+        {{ end }}
+        
+        {{ if $back }}
+        <div class="qsl-imgwrap">
+          <img src="{{ $back.RelPermalink }}" loading="lazy" alt="N4JHC QSL back">
+        </div>
+        {{ end }}
+      </div>
     </div>
   </section>
 {{ end }}
